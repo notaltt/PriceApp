@@ -7,51 +7,33 @@
 
 
         <TextView
-            android:id="@+id/serialNumber"
+            android:id="@+id/item_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="123213"/>
+            android:text="item name"/>
         <TextView
-            android:id="@+id/storeName"
+            android:id="@+id/store_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="SM"
-            android:layout_below="@id/serialNumber"/>
+            android:text="store_name"
+            android:layout_below="@+id/item_name"/>
         <TextView
-            android:id="@+id/category"
+            android:id="@+id/net_weight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="can goods"
-            android:layout_below="@id/storeName"/>
-
+            android:text="net weight"
+            android:layout_below="@+id/store_name"/>
         <TextView
-            android:id="@+id/itemName"
+            android:id="@+id/quantity2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/category"
-            android:text="CORNEDBEEF" />
-
+            android:text="quantity"
+            android:layout_below="@+id/net_weight"/>
         <TextView
-            android:id="@+id/netWeight"
+            android:id="@+id/price2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="39g"
-            android:layout_below="@id/itemName"/>
-        <TextView
-            android:id="@+id/quantity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="5pcs"
-            android:layout_below="@id/netWeight"/>
-
-        <TextView
-            android:id="@+id/price"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/quantity"
-            android:text="100php" />
-
-
-
+            android:text="price"
+            android:layout_below="@+id/quantity2"/>
 
 </RelativeLayout>

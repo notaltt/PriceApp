@@ -1,13 +1,10 @@
 package com.example.pricelistapp.Search;
 
 public class PriceList {
-    public String serialNumber;
-    public String storeName;
-    public String category;
-    public String itemName;
-    public String netWeight;
-    public String quantity;
-    public String price;
+    String serialNumber;
+    String storeName, category, itemName, netWeight;
+    String quantity;
+    String price;
 
     public PriceList(String serialNumber, String storeName, String category, String itemName, String netWeight, String quantity, String price) {
         this.serialNumber = serialNumber;
