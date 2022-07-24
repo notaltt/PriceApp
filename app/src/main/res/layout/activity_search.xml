@@ -7,13 +7,20 @@
     android:background="@drawable/background"
     tools:context=".Search.SearchActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SEARCH"
-        android:textSize="50dp"
-        android:textStyle="bold"
-        android:textColor="@color/black"/>
+        android:background="@color/green"
+        android:layout_alignParentTop="true"/>
+
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/search_bar"
+        android:layout_marginTop="10dp" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
