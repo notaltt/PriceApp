@@ -1,42 +1,30 @@
 package com.example.pricelistapp.Search;
 
 public class PriceList {
-    public int serialNumber, netWeight, quantity;
-    public String storeName, category, itemName;
-    public double price;
+    public String serialNumber;
+    public String storeName;
+    public String category;
+    public String itemName;
+    public String netWeight;
+    public String quantity;
+    public String price;
 
-    public PriceList(int serialNumber, int netWeight, int quantity, String storeName, String category, String itemName, double price) {
+    public PriceList(String serialNumber, String storeName, String category, String itemName, String netWeight, String quantity, String price) {
         this.serialNumber = serialNumber;
-        this.netWeight = netWeight;
-        this.quantity = quantity;
         this.storeName = storeName;
         this.category = category;
         this.itemName = itemName;
+        this.netWeight = netWeight;
+        this.quantity = quantity;
         this.price = price;
     }
 
-    public int getSerialNumber() {
+    public String getSerialNumber() {
         return serialNumber;
     }
 
-    public void setSerialNumber(int serialNumber) {
+    public void setSerialNumber(String serialNumber) {
         this.serialNumber = serialNumber;
-    }
-
-    public int getNetWeight() {
-        return netWeight;
-    }
-
-    public void setNetWeight(int netWeight) {
-        this.netWeight = netWeight;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 
     public String getStoreName() {
@@ -63,11 +51,27 @@ public class PriceList {
         this.itemName = itemName;
     }
 
-    public double getPrice() {
+    public String getNetWeight() {
+        return netWeight;
+    }
+
+    public void setNetWeight(String netWeight) {
+        this.netWeight = netWeight;
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 }

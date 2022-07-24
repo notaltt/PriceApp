@@ -11,51 +11,56 @@ import java.util.ArrayList;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    public static final String DB_NAME = "PriceList.db";
-    public static final String TABLE_NAME = "priceList";
-    public static final String COL_SERIAL = "serialNumber";
-    public static final String COL_STORE = "storeName";
-    public static final String COL_CATEGORY = "category";
-    public static final String COL_NAME = "itemName";
-    public static final String COL_WEIGHT = "netWeight";
-    public static final String COL_QUANTITY = "quantity";
-    public static final String COL_PRICE = "price";
+    public static String DB_NAME ;
+    public static String DB_TABLE ;
+    public static final String DB_LOCATION = "/data/data/"+ PricelistAdapter.context.getPackageName()+"/databases/";
+    private Context mContext;
+    private SQLiteDatabase mDatabase;
 
-
-    public DBHelper(@Nullable Context context) {
+    public DBHelper(@Nullable Context context, String dbName) {
         super(context, DB_NAME, null, 1);
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        DB_NAME = dbName+".db";
+        DB_TABLE = "priceList";
+        mContext = context;
     }
-
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL(" create table " + TABLE_NAME +
-                " (serialNumber INTEGER PRIMARY KEY, storeName TEXT, category TEXT, itemName TEXT, netWeight INTEGER, quantity INTEGER, price REAL) ");
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        sqLiteDatabase.execSQL(" drop table if exists " + TABLE_NAME);
+
     }
 
-    public ArrayList<PriceList> getPriceListData(){
-        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        ArrayList<PriceList> arrayList = new ArrayList<>();
-        Cursor cursor = sqLiteDatabase.rawQuery(" select * from "+TABLE_NAME+"", null);
-
-        while (cursor.moveToNext()){
-            int serialNumber = cursor.getInt(0);
-            int netWeight = cursor.getInt(1);
-            int quantity = cursor.getInt(2);
-            String storeName = cursor.getString(3);
-            String category = cursor.getString(4);
-            String itemName = cursor.getString(5);
-            double price = cursor.getDouble(6);
-
-            PriceList priceList = new PriceList(serialNumber, netWeight, quantity, storeName, category, itemName, price);
-            arrayList.add( priceList );
+    public void OpenDatabase(){
+        String DBLocation = mContext.getDatabasePath(DB_NAME).getPath();
+        if(mDatabase!=null && mDatabase.isOpen()){
+            return;
         }
+        mDatabase = SQLiteDatabase.openDatabase(DBLocation, null, SQLiteDatabase.OPEN_READWRITE);
+    }
+
+    public void CloseDatabase(){
+        if(mDatabase != null){
+            mDatabase.close();
+        }
+    }
+
+    public ArrayList<PriceList> getPriceList(){
+        PriceList priceList = null;
+        ArrayList<PriceList> arrayList = new ArrayList<PriceList>();
+        OpenDatabase();
+        Cursor cursor = mDatabase.rawQuery("select * from "+ DB_TABLE, null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()){
+            priceList = new PriceList(cursor.getString(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6));
+            arrayList.add(priceList);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        CloseDatabase();
         return arrayList;
     }
 }
