@@ -39,17 +39,21 @@ public class PriceAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.listview_layout, null);
+
         TextView item_name = convertView.findViewById(R.id.item_name);
         TextView store_name = convertView.findViewById(R.id.store_name);
         TextView net_weight = convertView.findViewById(R.id.net_weight);
         TextView quantity2 = convertView.findViewById(R.id.quantity2);
         TextView price2 = convertView.findViewById(R.id.price2);
+
         PriceList priceList = arrayList.get(position);
+
         String item1 = priceList.getItemName();
         String store1 = priceList.getStoreName();
         String net1 = priceList.getNetWeight();
         String quan1 = priceList.getQuantity();
         String price1 = priceList.getPrice();
+
         item_name.setText(item1);
         store_name.setText(store1);
         net_weight.setText(net1);

@@ -76,7 +76,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
     }
 
     private void showPriceData() {
-        arrayList = dbHelper.getStudentData();
+        arrayList = dbHelper.getPriceData();
         adapter = new PriceAdapter(SearchActivity.this, arrayList);
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
