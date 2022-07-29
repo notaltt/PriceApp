@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.pricelistapp.PriceList;
 import com.example.pricelistapp.R;
 
 import java.util.ArrayList;
@@ -45,6 +46,8 @@ public class PriceAdapter extends BaseAdapter {
         TextView net_weight = convertView.findViewById(R.id.net_weight);
         TextView quantity2 = convertView.findViewById(R.id.quantity2);
         TextView price2 = convertView.findViewById(R.id.price2);
+        TextView serial = convertView.findViewById(R.id.serial_Number);
+        TextView category = convertView.findViewById(R.id.category_name);
 
         PriceList priceList = arrayList.get(position);
 
@@ -53,12 +56,16 @@ public class PriceAdapter extends BaseAdapter {
         String net1 = priceList.getNetWeight();
         String quan1 = priceList.getQuantity();
         String price1 = priceList.getPrice();
+        String ser = priceList.getSerialNumber();
+        String cat = priceList.getCategory();
 
         item_name.setText(item1);
         store_name.setText(store1);
         net_weight.setText(net1);
         quantity2.setText(quan1);
         price2.setText(price1);
+        serial.setText(ser);
+        category.setText(cat);
 
         return convertView;
     }

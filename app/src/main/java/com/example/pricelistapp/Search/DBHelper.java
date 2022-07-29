@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import com.example.pricelistapp.PriceList;
+
 import java.util.ArrayList;
 
 public class DBHelper extends SQLiteOpenHelper {
@@ -56,6 +58,7 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
+
     public ArrayList<PriceList> getPriceData(){
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<PriceList> arrayList = new ArrayList<>();
@@ -73,4 +76,5 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         return arrayList;
     }
+
 }

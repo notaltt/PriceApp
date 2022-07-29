@@ -3,19 +3,17 @@ package com.example.pricelistapp.Search;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.MenuItemCompat;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -24,6 +22,7 @@ import android.widget.Toast;
 import com.example.pricelistapp.History.HistoryActivity;
 import com.example.pricelistapp.Home.HomeActivity;
 import com.example.pricelistapp.List.ListActivity;
+import com.example.pricelistapp.PriceList;
 import com.example.pricelistapp.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -31,17 +30,22 @@ import java.util.ArrayList;
 
 public class SearchActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
     DBHelper dbHelper;
+    com.example.pricelistapp.List.DBHelper listDBHelper;
     ListView listView;
     ArrayList<PriceList> arrayList;
     ArrayList<PriceList> searchList;
     PriceAdapter adapter;
     BottomNavigationView bottomNavigationView;
+    String selectedFilter;
+    String itemName, storeName, quantity, price1;
+    PriceList listModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
         dbHelper = new DBHelper(this);
+        listDBHelper = new com.example.pricelistapp.List.DBHelper(this);
         listView = findViewById(R.id.listView);
         showPriceData();
 
@@ -73,6 +77,9 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
                 return false;
             }
         });
+
+        listView.setMultiChoiceModeListener(modeListener);
+        listView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE_MODAL);
     }
 
     private void showPriceData() {
@@ -151,7 +158,13 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
         searchList = new ArrayList<>();
         for(PriceList priceList : arrayList){
             String serial = priceList.getSerialNumber().toLowerCase();
+            String storeName = priceList.getStoreName().toLowerCase();
+            String itemName = priceList.getItemName().toLowerCase();
             if(serial.contains(newText)){
+                searchList.add(priceList);
+            } else if(storeName.contains(newText)){
+                searchList.add(priceList);
+            } else if(itemName.contains(newText)){
                 searchList.add(priceList);
             }
         }
@@ -159,4 +172,70 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
         return true;
     }
 
+    AbsListView.MultiChoiceModeListener modeListener = new AbsListView.MultiChoiceModeListener() {
+        @Override
+        public void onItemCheckedStateChanged(ActionMode actionMode, int position, long l, boolean b) {
+            listModel = arrayList.get(position);
+            itemName = listModel.getItemName();
+            storeName = listModel.getStoreName();
+            quantity = listModel.getQuantity();
+            price1 = listModel.getPrice();
+            actionMode.setTitle(itemName);
+        }
+
+        @Override
+        public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
+            getMenuInflater().inflate(R.menu.abs_menu, menu);
+            return true;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {;
+            int quant = Integer.parseInt(listModel.getQuantity());
+            double pri = Double.parseDouble(listModel.getPrice());
+            double mult = quant * pri;
+            String total = String.valueOf(mult);
+            boolean result = listDBHelper.insertData(storeName, itemName, quantity, price1, total);
+            if(result == true){
+                Toast.makeText(SearchActivity.this, itemName+" is added to list", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(SearchActivity.this, itemName+" is already in list", Toast.LENGTH_SHORT).show();
+            }
+            return true;
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode actionMode) {
+
+        }
+    };
+
+    public void filterList(String status){
+        selectedFilter = status;
+        searchList = new ArrayList<>();
+        for(PriceList priceList : arrayList){
+            String storeName = priceList.getStoreName().toLowerCase();
+            if(storeName.contains(status)){
+                searchList.add(priceList);
+            }
+        }
+        adapter.searchFilter(searchList);
+    }
+
+    public void smFilterButton(View view) {
+        filterList("sm");
+    }
+
+    public void shopwiseFilterButton(View view) {
+        filterList("shopwise");
+    }
+
+    public void happyFilterButton(View view) {
+        filterList("happy");
+    }
 }

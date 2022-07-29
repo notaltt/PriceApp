@@ -1,10 +1,11 @@
-package com.example.pricelistapp.Search;
+package com.example.pricelistapp;
 
 public class PriceList {
     String serialNumber;
     String storeName, category, itemName, netWeight;
     String quantity;
     String price;
+    String totalPrice;
 
     public PriceList(String serialNumber, String storeName, String category, String itemName, String netWeight, String quantity, String price) {
         this.serialNumber = serialNumber;
@@ -14,6 +15,14 @@ public class PriceList {
         this.netWeight = netWeight;
         this.quantity = quantity;
         this.price = price;
+    }
+
+    public PriceList(String storeName, String itemName, String quantity, String price, String totalPrice){
+        this.storeName = storeName;
+        this.itemName = itemName;
+        this.quantity = quantity;
+        this.price = price;
+        this.totalPrice = totalPrice;
     }
 
     public String getSerialNumber() {
@@ -70,5 +79,13 @@ public class PriceList {
 
     public void setPrice(String price) {
         this.price = price;
+    }
+
+    public String getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(String totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

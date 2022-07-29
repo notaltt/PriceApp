@@ -11,7 +11,42 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:padding="15dp"
-        android:id="@+id/listView"/>
+        android:id="@+id/listView"
+        android:layout_below="@id/linear"/>
+    <LinearLayout
+        android:padding="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/linear">
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="SM"
+            android:id="@+id/smButton"
+            android:textColor="@color/white"
+            android:onClick="smFilterButton" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="SHOPWISE"
+            android:id="@+id/shopwiseButton"
+            android:textColor="@color/white"
+            android:onClick="shopwiseFilterButton"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="HAPPY"
+            android:id="@+id/happyButton"
+            android:textColor="@color/white"
+            android:onClick="happyFilterButton"/>
+
+    </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"

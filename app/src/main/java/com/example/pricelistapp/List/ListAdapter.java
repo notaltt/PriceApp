@@ -7,15 +7,16 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.pricelistapp.PriceList;
 import com.example.pricelistapp.R;
 
 import java.util.ArrayList;
 
 public class ListAdapter extends BaseAdapter {
     Context context;
-    ArrayList<ListModel> arrayList;
+    ArrayList<PriceList> arrayList;
 
-    public ListAdapter(Context context, ArrayList<ListModel> arrayList) {
+    public ListAdapter(Context context, ArrayList<PriceList> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
     }
@@ -44,18 +45,21 @@ public class ListAdapter extends BaseAdapter {
         TextView storeList = convertView.findViewById(R.id.store_nameList);
         TextView quantList = convertView.findViewById(R.id.quantity2List);
         TextView priList = convertView.findViewById(R.id.price2List);
+        TextView totalList = convertView.findViewById(R.id.totalPrice);
 
-        ListModel listModel = arrayList.get(position);
+        PriceList listModel = arrayList.get(position);
 
         String name1 = listModel.getItemName();
         String store2 = listModel.getStoreName();
         String quant2 = listModel.getQuantity();
         String price2 = listModel.getPrice();
+        String total1 = listModel.getTotalPrice();
 
         nameList.setText(name1);
         storeList.setText(store2);
         quantList.setText(quant2);
         priList.setText(price2);
+        totalList.setText(total1);
 
         return convertView;
     }
