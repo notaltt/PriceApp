@@ -105,4 +105,9 @@ public class DBHelper extends SQLiteOpenHelper {
         }
         return totalItems;
     }
+
+    public void deleteAll(){
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        sqLiteDatabase.execSQL("delete from "+TABLE_NAME);
+    }
 }

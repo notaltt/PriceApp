@@ -5,6 +5,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -38,13 +39,16 @@ public class ListActivity extends AppCompatActivity {
     ListAdapter adapter;
     String itemName, storeName, quantity, price;
     PriceList listModel;
+    com.example.pricelistapp.History.DBHelper historyDBHelper;
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
         dbHelper = new DBHelper(this);
+        historyDBHelper = new com.example.pricelistapp.History.DBHelper(this);
         listView = findViewById(R.id.listView1);
         showListData();
 
@@ -54,27 +58,24 @@ public class ListActivity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.bottomNavigation);
         bottomNavigationView.setSelectedItemId(R.id.list);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.home:
-                        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.search:
-                        startActivity(new Intent(getApplicationContext(), SearchActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.list:
-                        return true;
-                    case R.id.history:
-                        startActivity(new Intent(getApplicationContext(), HistoryActivity.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                }
-                return false;
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()){
+                case R.id.home:
+                    startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                case R.id.search:
+                    startActivity(new Intent(getApplicationContext(), SearchActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
+                case R.id.list:
+                    return true;
+                case R.id.history:
+                    startActivity(new Intent(getApplicationContext(), HistoryActivity.class));
+                    overridePendingTransition(0,0);
+                    return true;
             }
+            return false;
         });
 
         listView.setMultiChoiceModeListener(modeListener);
@@ -96,7 +97,7 @@ public class ListActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if(item.getTitle().equals("insert")){
+        if(item.getTitle().equals("INSERT LIST")){
             LayoutInflater inflater = (LayoutInflater) ListActivity.this.getSystemService(LAYOUT_INFLATER_SERVICE);
             View view = inflater.inflate(R.layout.listinsert_layout, null);
             EditText itemNameList = view.findViewById(R.id.itemNameList);
@@ -126,7 +127,7 @@ public class ListActivity extends AppCompatActivity {
                             double mult = quant * pri;
                             String price = String.valueOf(mult);
                             boolean result = dbHelper.insertData(storeList, itemList, quantList, pList, price);
-                            if(result == true){
+                            if(result){
                                 showListData();
                                 Toast.makeText(ListActivity.this, "new product added", Toast.LENGTH_SHORT);
                             } else {
@@ -139,11 +140,26 @@ public class ListActivity extends AppCompatActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(ListActivity.this);
             builder.setTitle("TOTAL")
                     .setMessage("Total of items: " +dbHelper.getTotalItems() +
-                            "\nTotal of price: "+dbHelper.getTotalPrice())
+                            "\nTotal of price: "+dbHelper.getTotalPrice()+
+                            "\nSAVING SUMMARY WILL DELETE THE LIST")
                     .setNegativeButton("OKAY", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
 
+                        }
+                    }).setPositiveButton("SAVE SUMMARY", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            String totalPrice = dbHelper.getTotalPrice();
+                            String totalItems = dbHelper.getTotalItems();
+                            boolean result = historyDBHelper.insertData(totalItems, totalPrice);
+                            if(result == true){
+                                dbHelper.deleteAll();
+                                showListData();
+                                Toast.makeText(ListActivity.this, "new product added", Toast.LENGTH_SHORT);
+                            } else {
+
+                            }
                         }
                     });
             builder.create().show();
