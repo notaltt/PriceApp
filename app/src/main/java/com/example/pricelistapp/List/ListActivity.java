@@ -29,6 +29,7 @@ import com.example.pricelistapp.Search.SearchActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class ListActivity extends AppCompatActivity {
 
@@ -106,9 +107,8 @@ public class ListActivity extends AppCompatActivity {
             EditText priceList = view.findViewById(R.id.priceList);
             AlertDialog.Builder builder = new AlertDialog.Builder(ListActivity.this);
             builder.setView(view)
-                    .setTitle("INSERT LIST")
-                    .setMessage("make a list")
-                    .setIcon(R.drawable.ic_insert)
+                    .setTitle("                   INSERT LIST")
+                    .setMessage("                           insert an item")
                     .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
@@ -129,19 +129,19 @@ public class ListActivity extends AppCompatActivity {
                             boolean result = dbHelper.insertData(storeList, itemList, quantList, pList, price);
                             if(result){
                                 showListData();
-                                Toast.makeText(ListActivity.this, "new product added", Toast.LENGTH_SHORT);
+                                Toast.makeText(ListActivity.this, "new product added", Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(ListActivity.this, "new product not added", Toast.LENGTH_SHORT);
+                                Toast.makeText(ListActivity.this, "new product not added", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
             builder.create().show();
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(ListActivity.this);
-            builder.setTitle("TOTAL")
+            builder.setTitle("SUMMARY OF THE GROCERY")
                     .setMessage("Total of items: " +dbHelper.getTotalItems() +
                             "\nTotal of price: "+dbHelper.getTotalPrice()+
-                            "\nSAVING SUMMARY WILL DELETE THE LIST")
+                            "\n\n*SAVING SUMMARY WILL DELETE THE WHOLE LIST*")
                     .setNegativeButton("OKAY", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
@@ -150,15 +150,22 @@ public class ListActivity extends AppCompatActivity {
                     }).setPositiveButton("SAVE SUMMARY", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            String totalPrice = dbHelper.getTotalPrice();
-                            String totalItems = dbHelper.getTotalItems();
-                            boolean result = historyDBHelper.insertData(totalItems, totalPrice);
-                            if(result == true){
-                                dbHelper.deleteAll();
-                                showListData();
-                                Toast.makeText(ListActivity.this, "new product added", Toast.LENGTH_SHORT);
+                            if (dbHelper.getTotalItems().equals("0")) {
+                                Toast.makeText(ListActivity.this, "PLEASE INSERT A LIST", Toast.LENGTH_SHORT).show();
                             } else {
+                                Random rand = new Random();
+                                int ran = rand.nextInt();
+                                String id = String.valueOf(ran);
+                                String totalPrice = dbHelper.getTotalPrice();
+                                String totalItems = dbHelper.getTotalItems();
+                                boolean result = historyDBHelper.insertData(id, totalItems, totalPrice);
+                                if(result == true){
+                                    dbHelper.deleteAll();
+                                    showListData();
+                                    Toast.makeText(ListActivity.this, "SUMMARY SAVED IN HISTORY TAB", Toast.LENGTH_SHORT).show();
+                                } else {
 
+                                }
                             }
                         }
                     });
@@ -191,11 +198,9 @@ public class ListActivity extends AppCompatActivity {
 
         @Override
         public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {;
-            if(menuItem.getTitle().equals("delete")){
+            if(menuItem.getTitle().equals("DELETE")){
                 AlertDialog.Builder builder = new AlertDialog.Builder(ListActivity.this);
-                builder.setTitle("DELETING " + itemName)
-                        .setMessage("Are you sure deleting "+itemName+"?")
-                        .setIcon(R.drawable.ic_delete)
+                builder.setTitle("Are you sure deleting "+itemName+"?")
                         .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -233,9 +238,8 @@ public class ListActivity extends AppCompatActivity {
                 priceList.setText(price);
                 AlertDialog.Builder builder = new AlertDialog.Builder(ListActivity.this);
                 builder.setView(view)
-                        .setTitle("UPDATE LIST")
-                        .setMessage("UPDATE A LIST")
-                        .setIcon(R.drawable.ic_update)
+                        .setTitle("                 UPDATE ITEM")
+                        .setMessage("             don't change the item name")
                         .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
@@ -256,9 +260,9 @@ public class ListActivity extends AppCompatActivity {
                                 boolean result = dbHelper.updateData(storeList, itemList, quantList, pList, price);
                                 if(result == true){
                                     showListData();
-                                    Toast.makeText(ListActivity.this, "new product added", Toast.LENGTH_SHORT);
+                                    Toast.makeText(ListActivity.this, itemList+" is updated", Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Toast.makeText(ListActivity.this, "new product not added", Toast.LENGTH_SHORT);
+                                    Toast.makeText(ListActivity.this, itemList+" is not updated", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });

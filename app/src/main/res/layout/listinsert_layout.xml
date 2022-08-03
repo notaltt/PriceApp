@@ -8,35 +8,39 @@
         android:id="@+id/itemNameList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
+        android:ems="16"
         android:inputType="text"
+        android:layout_centerHorizontal="true"
         android:hint="item name"/>
 
     <EditText
         android:id="@+id/storeNameList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
+        android:ems="16"
         android:inputType="text"
         android:hint="store name"
+        android:layout_centerHorizontal="true"
         android:layout_below="@id/itemNameList"/>
 
     <EditText
         android:id="@+id/quantityList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
+        android:ems="16"
         android:inputType="number"
         android:hint="quantity"
+        android:layout_centerHorizontal="true"
         android:layout_below="@id/storeNameList"/>
 
     <EditText
         android:id="@+id/priceList"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
+        android:ems="16"
         android:inputType="numberDecimal"
         android:hint="price"
+        android:layout_centerHorizontal="true"
         android:layout_below="@id/quantityList"/>
 
 </RelativeLayout>

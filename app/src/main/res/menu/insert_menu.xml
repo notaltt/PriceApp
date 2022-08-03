@@ -7,7 +7,7 @@
         app:showAsAction="always"/>
 
     <item
-        android:title="SUMMARY"
+        android:title="TOTAL PRICE"
         android:id="@+id/iallList"
         app:showAsAction="always"/>
 

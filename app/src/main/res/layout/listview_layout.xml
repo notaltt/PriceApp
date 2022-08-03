@@ -11,152 +11,110 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_marginStart="111dp"
-            android:layout_marginTop="8dp"
-            android:text="serial_number"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:text="123456"
+            android:textSize="24sp"
             android:textStyle="normal|bold|italic" />
 
         <TextView
             android:id="@+id/item_name"
-            android:layout_width="88dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="110dp"
-            android:layout_marginTop="38dp"
-            android:text="item name"
+            android:layout_below="@id/serial_Number"
+            android:layout_marginLeft="5dp"
+            android:text="ITEM NAME"
+            android:textSize="34sp"
             android:textStyle="normal|bold|italic" />
 
         <TextView
             android:id="@+id/store_name"
-            android:layout_width="89dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="108dp"
-            android:layout_marginTop="73dp"
-            android:text="store_name"
+            android:layout_toRightOf="@id/serial_Number"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:text="Shopwise"
+            android:textSize="24sp"
             android:textStyle="normal|bold|italic" />
 
         <TextView
             android:id="@+id/net_weight"
-            android:layout_width="93dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/store_name"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="-60dp"
-            android:layout_marginEnd="12dp"
-            android:text="net weight"
+            android:layout_below="@id/quantity2"
+            android:layout_marginLeft="5dp"
+            android:text="100"
+            android:textSize="20sp"
             android:textStyle="normal|bold|italic" />
 
         <TextView
             android:id="@+id/quantity2"
-            android:layout_width="87dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="71dp"
-            android:layout_marginEnd="22dp"
-            android:text="quantity"
+            android:layout_below="@id/item_name"
+            android:layout_marginLeft="5dp"
+            android:text="128"
+            android:textSize="20sp"
             android:textStyle="normal|bold|italic" />
 
         <TextView
             android:id="@+id/price2"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="110dp"
-            android:layout_marginEnd="45dp"
-            android:text="price"
-            android:textStyle="normal|bold|italic" />
-
-        <TextView
-            android:id="@+id/serialNumberText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="8dp"
-            android:text="Serial Number:"
-            android:textStyle="normal|bold" />
-
-        <TextView
-            android:id="@+id/itemNameText"
-            android:layout_width="85dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="13dp"
-            android:layout_marginTop="38dp"
-            android:text="Item name:"
-            android:textStyle="normal|bold" />
-
-        <TextView
-            android:id="@+id/categoryText"
-            android:layout_width="71dp"
-            android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="7dp"
-            android:layout_marginEnd="116dp"
-            android:text="Category:"
-            android:textStyle="normal|bold" />
-
-        <TextView
-            android:id="@+id/storeNameText"
-            android:layout_width="90dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="11dp"
-            android:layout_marginTop="75dp"
-            android:text="Store Name:"
-            android:textStyle="normal|bold" />
+            android:layout_marginTop="88dp"
+            android:layout_marginEnd="12dp"
+            android:text="30000"
+            android:textColor="#4CAF50"
+            android:textColorHighlight="#FF9800"
+            android:textSize="48sp"
+            android:textStyle="normal|bold|italic" />
 
         <TextView
             android:id="@+id/category_name"
-            android:layout_width="92dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:text="category"
+            android:layout_toRightOf="@id/store_name"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:text="Beverage"
+            android:textSize="24sp"
             android:textStyle="normal|bold|italic" />
 
         <TextView
-            android:id="@+id/netWeightText"
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="36dp"
-            android:layout_marginEnd="114dp"
-            android:text="Net Weight:"
-            android:textStyle="normal|bold" />
+            android:layout_below="@id/item_name"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/quantity2"
+            android:text="pcs"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/quantityText"
-            android:layout_width="73dp"
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="70dp"
-            android:layout_marginEnd="116dp"
-            android:text="Quantity:"
-            android:textStyle="normal|bold" />
+            android:layout_marginTop="97dp"
+            android:layout_toLeftOf="@id/price2"
+            android:text="PHP"
+            android:textColor="#4CAF50"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/priceText"
-            android:layout_width="47dp"
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="118dp"
-            android:layout_marginTop="109dp"
-            android:text="Price:"
-            android:textStyle="normal|bold" />
+            android:layout_marginLeft="5dp"
+            android:layout_below="@id/textView"
+            android:layout_toRightOf="@id/net_weight"
+            android:text="g"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
 </RelativeLayout>

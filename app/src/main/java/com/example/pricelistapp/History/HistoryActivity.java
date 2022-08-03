@@ -32,7 +32,7 @@ public class HistoryActivity extends AppCompatActivity {
     HistoryAdapter adapter;
     ListView listView;
     HistoryModel historyModel;
-    String date;
+    String date, id;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,8 +90,7 @@ public class HistoryActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         AlertDialog.Builder builder = new AlertDialog.Builder(HistoryActivity.this);
-        builder.setTitle("CLEAR DATA")
-                .setMessage("Are you sure deleting all date in the list? ")
+        builder.setTitle("Are you sure deleting all data in the list?")
                 .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -102,6 +101,7 @@ public class HistoryActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dbHelper.deleteAll();
                         showListData();
+                        Toast.makeText(HistoryActivity.this,"DELETED ALL DATA", Toast.LENGTH_SHORT).show();
                     }
                 });
         builder.create().show();
@@ -113,6 +113,7 @@ public class HistoryActivity extends AppCompatActivity {
         public void onItemCheckedStateChanged(ActionMode actionMode, int i, long l, boolean b) {
             historyModel = arrayList.get(i);
             date = historyModel.getDate();
+            id = historyModel.getId();
             actionMode.setTitle(date);
         }
 
@@ -130,9 +131,7 @@ public class HistoryActivity extends AppCompatActivity {
         @Override
         public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
             AlertDialog.Builder builder = new AlertDialog.Builder(HistoryActivity.this);
-            builder.setTitle("DELETING " + date)
-                    .setMessage("Are you sure deleting the "+date+"?")
-                    .setIcon(R.drawable.ic_delete)
+            builder.setTitle("Are you sure deleting the "+date+"?")
                     .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
@@ -142,7 +141,7 @@ public class HistoryActivity extends AppCompatActivity {
                     .setPositiveButton("DELETE", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            int result = dbHelper.delete(date);
+                            int result = dbHelper.delete(id);
                             if(result>0){
                                 showListData();
                                 actionMode.finish();

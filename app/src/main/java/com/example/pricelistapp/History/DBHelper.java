@@ -17,6 +17,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "historyData.db";
     public static final String TABLE_NAME = "history";
+    public static final String COL_ID = "id";
     public static final String COL_DATE = "date";
     public static final String COL_TOTAL = "totalItems";
     public static final String COL_PRICE = "totalPrice";
@@ -28,7 +29,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("create table "+TABLE_NAME+"(date TEXT, totalItems TEXT, totalPrice TEXT)");
+        sqLiteDatabase.execSQL("create table "+TABLE_NAME+"(id TEXT PRIMARY KEY, date TEXT, totalItems TEXT, totalPrice TEXT)");
     }
 
     @Override
@@ -42,9 +43,10 @@ public class DBHelper extends SQLiteOpenHelper {
         return dateFormat.format(date);
     }
 
-    public boolean insertData(String totalItems, String totalPrice){
+    public boolean insertData(String id, String totalItems, String totalPrice){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_ID, id);
         contentValues.put(COL_DATE, getDateTime());
         contentValues.put(COL_TOTAL, totalItems);
         contentValues.put(COL_PRICE, totalPrice);
@@ -61,18 +63,19 @@ public class DBHelper extends SQLiteOpenHelper {
         ArrayList<HistoryModel> arrayList = new ArrayList<>();
         Cursor cursor = sqLiteDatabase.rawQuery("select * from "+TABLE_NAME, null);
         while(cursor.moveToNext()){
-            String date = cursor.getString(0);
-            String totalItems = cursor.getString(1);
-            String totalPrice = cursor.getString(2);
-            HistoryModel historyModel = new HistoryModel(date, totalPrice, totalItems);
+            String id = cursor.getString(0);
+            String date = cursor.getString(1);
+            String totalItems = cursor.getString(2);
+            String totalPrice = cursor.getString(3);
+            HistoryModel historyModel = new HistoryModel(id, date, totalPrice, totalItems);
             arrayList.add(historyModel);
         }
         return arrayList;
     }
 
-    public int delete(String date){
+    public int delete(String id){
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
-        return sqLiteDatabase.delete(TABLE_NAME, "date = ?", new String[]{date});
+        return sqLiteDatabase.delete(TABLE_NAME, "id = ?", new String[]{id});
     }
 
     public void deleteAll(){

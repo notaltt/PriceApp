@@ -6,7 +6,7 @@
         android:title="SEARCH"
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="always|collapseActionView" />
-    <!--<item
+   <!-- <item
     android:title="insert"
     android:icon="@drawable/ic_insert"
     app:showAsAction="always"/> -->

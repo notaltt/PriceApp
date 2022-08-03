@@ -1,12 +1,21 @@
 package com.example.pricelistapp.History;
 
 public class HistoryModel {
-    String date, totalPrice, totalItems;
+    String date, totalPrice, totalItems, id;
 
-    public HistoryModel(String date, String totalPrice, String totalItems) {
+    public HistoryModel(String id, String date, String totalPrice, String totalItems) {
+        this.id = id;
         this.date = date;
         this.totalPrice = totalPrice;
         this.totalItems = totalItems;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getDate() {

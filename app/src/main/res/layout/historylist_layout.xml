@@ -9,18 +9,43 @@
         android:id="@+id/historyDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="item name"/>
+        android:text="item name"
+        android:textStyle="bold"
+        android:textColor="#F44336"
+        android:textSize="30sp" />
+
     <TextView
         android:id="@+id/historyTotalItems"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/historyDate"
+        android:layout_toRightOf="@id/textView3"
         android:text="store_name"
-        android:layout_below="@+id/historyDate"/>
+        android:textSize="20sp" />
+
     <TextView
         android:id="@+id/historyTotalPrice"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/historyTotalItems"
+        android:layout_toRightOf="@id/textView2"
         android:text="quantity"
-        android:layout_below="@+id/historyTotalItems"/>
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/historyTotalItems"
+        android:text="Total Price: "
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/historyDate"
+        android:text="Total Items: "
+        android:textSize="20sp" />
 
 </RelativeLayout>
